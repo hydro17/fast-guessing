@@ -1,0 +1,80 @@
+body {
+  margin:0;
+  background-color: #333;
+  font-family:Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+header {
+  background-color: #777;
+  font-size: 1.5em;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 300px;
+  /* background-color: #555; */
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #777;
+  border-radius: 5px;
+}
+
+#instructions-header {
+  font-size: 1em;
+}
+
+#word-to-type {
+  font-size: 2.5em;
+  padding: 20px;
+}
+
+.container input {
+  box-sizing: border-box;
+  width: 100% ;
+  border-radius: 3px;
+  border: none;
+  padding: 5px;
+  font-size: 1em;
+  text-align: center;
+}
+
+#game-over {
+  padding: 15px;
+  font-weight: bold;
+  padding-bottom: 0px;
+}
+
+#time-left, #score {
+  /* font-size: 1.3em; */
+  /* font-weight: bold; */
+  padding: 10px;
+  flex:1;
+  margin: 0;
+  margin-top: 10px;
+}
+
+#instructions {
+  margin-top: 15px;
+  border-radius: 3px;
+  background-color: #555;
+  padding: 15px;
+}
+
+#instructions h3 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+#instructions {
+  font-size: 0.7em;
+}
+
+.hidden {
+  display: none;
+}
+
