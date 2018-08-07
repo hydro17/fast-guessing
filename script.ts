@@ -33,8 +33,8 @@ guessANewWord()
 
 function guessANewWord() {
   drawNewWord();
+  // typedWord.focus();
   guessingAWord();
-
 }
 
 function drawNewWord() {
@@ -53,10 +53,23 @@ function drawNewWord() {
 }
 
 function guessingAWord() {
-  timer = setInterval(
-    checkTheGuessedWord
-    , 100);
+  isWordGuessed()
+    .then(() => {
+      playerScored();
+      guessANewWord();
+    })
+    .catch(() => {
+      decreaseTimeLeft();
+      if (isTimeOver()) gameOver();
+      else guessingAWord();
+    });
 };
+
+// function guessingAWord() {
+//   timer = setInterval(
+//     checkTheGuessedWord
+//     , 100);
+// };
 
 function playerScored() {
   playerScore++;
@@ -71,13 +84,17 @@ function checkTheGuessedWord() {
     guessANewWord();
   }
 
+  decreaseTimeLeft();
   if (isTimeOver()) gameOver();
 }
 
-function isTimeOver() {
+function decreaseTimeLeft() {
   timeLeft -= 0.1;
   if (timeLeft <= 0) timeLeft = 0;
   timeLeftInfo.innerHTML = `Time left: ${timeLeft.toFixed(1)} s`;
+}
+
+function isTimeOver() {
   if (timeLeft === 0) return true;
 }
 
@@ -89,15 +106,15 @@ function gameOver() {
   guessingAWordToStartANewGame()
 }
 
-function guessingAWordToStartANewGame() {
-  isWordGuessed();
-};
-
 // function guessingAWordToStartANewGame() {
-//   timer = setInterval(
-//     checkTheWordToStartANewGame
-//     , 100);
+//   isWordGuessed();
 // };
+
+function guessingAWordToStartANewGame() {
+  timer = setInterval(
+    checkTheWordToStartANewGame
+    , 100);
+};
 
 function checkTheWordToStartANewGame() {
   if (typedWord.value === wordToGuess.word) {
@@ -121,15 +138,5 @@ function isWordGuessed() {
       if (typedWord.value === wordToGuess.word) resolved();
       rejected();
     }, 100);
-  })
-}
-
-isWordGuessed()
-  .then(() => {
-    playerScored();
-    guessANewWord();
-  })
-  .catch(() => {
-    if (isTimeOver()) gameOver()
-    else isWordGuessed();
   });
+}

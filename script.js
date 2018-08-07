@@ -25,6 +25,7 @@ var timer;
 guessANewWord();
 function guessANewWord() {
     drawNewWord();
+    // typedWord.focus();
     guessingAWord();
 }
 function drawNewWord() {
@@ -39,9 +40,24 @@ function drawNewWord() {
     return wordToGuess;
 }
 function guessingAWord() {
-    timer = setInterval(checkTheGuessedWord, 100);
+    isWordGuessed()
+        .then(function () {
+        playerScored();
+        guessANewWord();
+    })["catch"](function () {
+        decreaseTimeLeft();
+        if (isTimeOver())
+            gameOver();
+        else
+            guessingAWord();
+    });
 }
 ;
+// function guessingAWord() {
+//   timer = setInterval(
+//     checkTheGuessedWord
+//     , 100);
+// };
 function playerScored() {
     playerScore++;
     score.innerHTML = "Score: " + playerScore;
@@ -53,14 +69,17 @@ function checkTheGuessedWord() {
         playerScored();
         guessANewWord();
     }
+    decreaseTimeLeft();
     if (isTimeOver())
         gameOver();
 }
-function isTimeOver() {
+function decreaseTimeLeft() {
     timeLeft -= 0.1;
     if (timeLeft <= 0)
         timeLeft = 0;
     timeLeftInfo.innerHTML = "Time left: " + timeLeft.toFixed(1) + " s";
+}
+function isTimeOver() {
     if (timeLeft === 0)
         return true;
 }
@@ -71,15 +90,13 @@ function gameOver() {
     timeLeft = 300; //3 min to exit from the game 
     guessingAWordToStartANewGame();
 }
+// function guessingAWordToStartANewGame() {
+//   isWordGuessed();
+// };
 function guessingAWordToStartANewGame() {
-    isWordGuessed();
+    timer = setInterval(checkTheWordToStartANewGame, 100);
 }
 ;
-// function guessingAWordToStartANewGame() {
-//   timer = setInterval(
-//     checkTheWordToStartANewGame
-//     , 100);
-// };
 function checkTheWordToStartANewGame() {
     if (typedWord.value === wordToGuess.word) {
         clearInterval(timer);
@@ -102,13 +119,3 @@ function isWordGuessed() {
         }, 100);
     });
 }
-isWordGuessed()
-    .then(function () {
-    playerScored();
-    guessANewWord();
-})["catch"](function () {
-    if (isTimeOver())
-        gameOver();
-    else
-        isWordGuessed();
-});
