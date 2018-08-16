@@ -74,19 +74,18 @@ function gameOver() {
   guessingAWordToStartANewGame()
 }
 
-function guessingAWordToStartANewGame() {
-  wait(100)
-    .then(() => {
-      if (isWordGuessed()) {
-        gameOverInfo.classList.add("hidden");
-        playerScore = 0;
+async function guessingAWordToStartANewGame() {
+  await wait(100);
 
-        scorePlayer();
-        guessANewWord();
-      } else {
-        guessingAWordToStartANewGame();
-      }
-    });
+  if (isWordGuessed()) {
+    gameOverInfo.classList.add("hidden");
+    playerScore = 0;
+
+    scorePlayer();
+    guessANewWord();
+  } else {
+    guessingAWordToStartANewGame();
+  }
 };
 
 function wait(ms) {
