@@ -4,15 +4,13 @@ var wordToType = document.getElementById('word-to-type');
 var gameOverInfo = document.getElementById('game-over');
 var timeLeftInfo = document.getElementById('time-left');
 var score = document.getElementById('score');
-// document.getElementById('typed-word').value = "ABC1";
 var typedWord = document.getElementById('typed-word');
-// enum GuessingResult { 'pending', 'guessed', 'time-out' };
 var words = [
-    { word: 'home', time: 8 },
-    { word: 'forest', time: 10 },
-    { word: 'stone', time: 8 },
-    { word: 'neighbour', time: 10 },
-    { word: 'watch', time: 8 }
+    { word: 'home', time: 4 },
+    { word: 'forest', time: 5 },
+    { word: 'stone', time: 4 },
+    { word: 'neighbour', time: 7 },
+    { word: 'watch', time: 4 }
 ];
 gameOverInfo.classList.add("hidden");
 var playerLost = false;
@@ -24,11 +22,10 @@ var timeLeft;
 var timer;
 guessANewWord();
 function guessANewWord() {
-    drawNewWord();
-    // typedWord.focus();
+    drawANewWord();
     guessingAWord();
 }
-function drawNewWord() {
+function drawANewWord() {
     var wordDrawnNo = Math.floor(Math.random() * words.length);
     wordToGuess = words[wordDrawnNo];
     timeLeft = wordToGuess.time;
@@ -37,12 +34,11 @@ function drawNewWord() {
     timeLeftInfo.innerHTML = "Time left: " + wordToGuess.time + " s";
     score.innerHTML = "Score: " + playerScore;
     typedWord.value = '';
-    return wordToGuess;
 }
 function guessingAWord() {
     isWordGuessed()
         .then(function () {
-        playerScored();
+        scorePlayer();
         guessANewWord();
     })["catch"](function () {
         decreaseTimeLeft();
@@ -53,25 +49,9 @@ function guessingAWord() {
     });
 }
 ;
-// function guessingAWord() {
-//   timer = setInterval(
-//     checkTheGuessedWord
-//     , 100);
-// };
-function playerScored() {
+function scorePlayer() {
     playerScore++;
     score.innerHTML = "Score: " + playerScore;
-}
-function checkTheGuessedWord() {
-    // console.log('checkGuessedWord', typedWord.value)
-    if (typedWord.value === wordToGuess.word) {
-        clearInterval(timer);
-        playerScored();
-        guessANewWord();
-    }
-    decreaseTimeLeft();
-    if (isTimeOver())
-        gameOver();
 }
 function decreaseTimeLeft() {
     timeLeft -= 0.1;
@@ -85,14 +65,10 @@ function isTimeOver() {
 }
 function gameOver() {
     gameOverInfo.classList.remove("hidden");
-    // playerLost = true;
     clearInterval(timer);
-    timeLeft = 300; //3 min to exit from the game 
+    timeLeft = 3600; //1 h to exit the game 
     guessingAWordToStartANewGame();
 }
-// function guessingAWordToStartANewGame() {
-//   isWordGuessed();
-// };
 function guessingAWordToStartANewGame() {
     timer = setInterval(checkTheWordToStartANewGame, 100);
 }
@@ -102,20 +78,20 @@ function checkTheWordToStartANewGame() {
         clearInterval(timer);
         gameOverInfo.classList.add("hidden");
         playerScore = 0;
-        playerScored();
+        scorePlayer();
         guessANewWord();
     }
     timeLeft -= 0.1;
     if (timeLeft <= 0)
         timeLeft = 0;
-    if (timeLeft <= 0) { } //not implemented};
 }
 function isWordGuessed() {
     return new Promise(function (resolved, rejected) {
         setTimeout(function () {
             if (typedWord.value === wordToGuess.word)
                 resolved();
-            rejected();
+            else
+                rejected();
         }, 100);
     });
 }
