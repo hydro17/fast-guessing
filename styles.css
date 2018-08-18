@@ -57,19 +57,19 @@ header {
   margin-top: 10px;
 }
 
-#instructions {
+.instructions {
   margin-top: 15px;
   border-radius: 3px;
   background-color: #555;
   padding: 15px;
 }
 
-#instructions h3 {
+.instructions h3 {
   margin: 0;
   margin-bottom: 5px;
 }
 
-#instructions {
+.instructions {
   font-size: 0.7em;
 }
 
