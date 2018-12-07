@@ -16,7 +16,7 @@ header {
 .container {
   margin: 0 auto;
   margin-top: 20px;
-  width: 300px;
+  width: 320px;
   padding: 20px;
   text-align: center;
   border: 1px solid #777;
@@ -24,7 +24,7 @@ header {
 }
 
 #instructions-header {
-  font-size: 1em;
+  font-size: 1.1em;
 }
 
 #word-to-type {
@@ -70,7 +70,7 @@ header {
 }
 
 .instructions {
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 .hidden {
