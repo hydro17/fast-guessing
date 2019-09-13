@@ -12,7 +12,9 @@ const words = [
   { word: 'forest', time: 5 },
   { word: 'stone', time: 4 },
   { word: 'neighbour', time: 7 },
-  { word: 'watch', time: 4 }
+  { word: 'watch', time: 4 },
+  { word: 'cinema', time: 4 },
+  { word: 'mountain', time: 5.5 }
 ];
 
 gameOverInfo.classList.add("hidden");
