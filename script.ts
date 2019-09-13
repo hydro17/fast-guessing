@@ -24,7 +24,7 @@ guessANewWord()
 
 function guessANewWord() {
   drawANewWord();
-  guessingAWord();
+  guessAWord();
 }
 
 function drawANewWord() {
@@ -40,7 +40,7 @@ function drawANewWord() {
   typedWord.value = '';
 }
 
-function guessingAWord() {
+function guessAWord() {
   wait(100)
     .then(() => {
       if (isWordGuessed()) {
@@ -49,7 +49,7 @@ function guessingAWord() {
       } else {
         decreaseTimeLeft();
         if (isTimeOver()) gameOver();
-        else guessingAWord();
+        else guessAWord();
       }
     });
 };
@@ -88,10 +88,10 @@ async function guessingAWordToStartANewGame() {
   }
 };
 
-function wait(ms) {
+function wait(ms: number) {
   return new Promise((resolved) => setTimeout(resolved, ms));
 }
 
 function isWordGuessed() {
-  return typedWord.value === wordToGuess.word;
+  return typedWord.value.toLocaleLowerCase() === wordToGuess.word;
 }
